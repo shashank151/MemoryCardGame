@@ -39,7 +39,6 @@ const restartGame = document.getElementById('restart');
 restartGame.addEventListener('click', function () {
     document.location.reload(true);
 })
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -65,7 +64,7 @@ function respondToTheClick(event) {
 }
 function displayCard() {
     event.target.classList.add('open', 'show');
-    addCardToOpenCardLsit(),5000;
+    addCardToOpenCardLsit(), 5000;
 }
 let openCards = [];
 let matchCards = [];
@@ -92,7 +91,7 @@ function cardMatch() {
             updateStar();
         }
         else {
-            cardDoNotMatch(); 
+            cardDoNotMatch();
             count = count + 1;
             addMove();
             updateStar();
@@ -139,33 +138,55 @@ function updateStar() {
 }
 function winningCondition() {
     if (matchCards.length == 465) {
+        clearTimeout(t);
         let modal = document.getElementById('myModal');
         modal.style.display = 'block';
         let _move2 = document.getElementById('moves2');
         _move2.innerText = count;
         let _star2 = document.getElementById('stars2');
-        if(count <= 10){
+        if (count <= 10) {
             _star2.innerText = "3 Stars";
         }
-        else if (count > 10 && count <=15 ) {
+        else if (count > 10 && count <= 15) {
             _star2.innerText = "2.5 Stars";
         }
-        else if (count > 15 && count <=18) {
+        else if (count > 15 && count <= 18) {
             _star2.innerText = "2 Stars";
         }
-        else if (count > 18 && count <=20) {
+        else if (count > 18 && count <= 20) {
             _star2.innerText = "1.5 Stars";
         }
-        else  {
+        else {
             _star2.innerText = "1 Star";
-            } 
+        }
+        let modTime = document.getElementById("modal-time");
+        modTime.innerHTML = "Time Taken : " + document.getElementById("timer").innerText;
         let button = document.getElementById('modal-btn');
         button.addEventListener('click', function () {
             modal.style.display = 'none';
             document.location.reload(true);
         })
-        
+
     }
 }
 
+var tym = document.getElementById("timer");
+var seconds = 0, minutes = 0, hours = 0, t;
 
+function add() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+    tym.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+    timer();
+}
+function timer() {
+    t = setTimeout(add, 1000);
+}
+timer();
