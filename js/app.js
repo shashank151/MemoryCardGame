@@ -64,7 +64,7 @@ function respondToTheClick(event) {
 }
 function displayCard() {
     event.target.classList.add('open', 'show');
-    addCardToOpenCardLsit(), 5000;
+    addCardToOpenCardLsit();
 }
 let openCards = [];
 let matchCards = [];
